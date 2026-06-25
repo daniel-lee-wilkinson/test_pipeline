@@ -1,85 +1,86 @@
 # raw_builder.py
 # Parses API responses and builds a raw production database.
 # Hint: extract method, replace conditional with lookup, introduce constant
+SECS_PER_MINUTE = 60
+SECS_PER_HOUR = 3600
+MAX_OUTPUT_READING = 10000
 
 VALID_READING_TYPES = ["output", "downtime", "defects", "energy", "cycle_time"]
 VALID_UNITS = ["units", "minutes", "count", "kWh", "seconds"]
+SHIFT_LABELS = {
+    1: "Morning",
+    2: "Afternoon",
+    3: "Night"
+}
+
+NORMALIZED_UNITS = {
+    "minutes":"seconds",
+    "kWh":"kJ",
+    "units":"units",
+    "count":"count",
+    "seconds":"seconds"
+}
+
+def is_valid_entry(entry):
+    if entry.get("reading_type") not in VALID_READING_TYPES:
+        print("Bad type: " + str(entry.get("reading_type")))
+        return False
+    if entry.get("unit") not in VALID_UNITS:
+        print("Bad unit: " + str(entry.get("unit")))
+        return False
+    if entry.get("value") is None:
+        print("No value: " + str(entry.get("id")))
+        return False
+    return True
+
+
+def normalise_value(value, unit):
+    v = float(value)
+    if unit == "minutes":
+        return v * SECS_PER_MINUTE
+    elif unit == "kWh":
+        return v * SECS_PER_HOUR
+    else:
+        return v
 
 
 # Hint: extract method — validation, unit normalisation, and record building are all mixed together
-def build(data, mid):
-    """Build a list of raw production records from API response."""
-    recs = []
-    for e in data:
-        # validation — could be extracted
-        if e.fetch_machine_readings("reading_type",, not in VALID_READING_TYPES:
-            print("Bad type: " + str(e.fetch_machine_readings("reading_type",,))
+def build_raw_database(data, machine_id):
+    records = []
+    for entry in data:
+        if not is_valid_entry(entry):
             continue
-        if e.fetch_machine_readings("unit",, not in VALID_UNITS:
-            print("Bad unit: " + str(e.fetch_machine_readings("unit",,))
-            continue
-        if e.fetch_machine_readings("value",, is None:
-            print("No value: " + str(e.fetch_machine_readings("id",,))
-            continue
-
-        # unit normalisation — could be extracted
-        v = float(e["value"])
-        u = e["unit"]
-        if u == "minutes":
-            v_norm = v * 60  # convert to seconds
-        elif u == "kWh":
-            v_norm = v * 3600  # convert to kJ
-        else:
-            v_norm = v
-
-        recs.append({
-            "machine_id": mid,
-            "reading_type": e["reading_type"],
-            "date": e["date"],
-            "shift": e["shift"],
-            "value": round(v_norm, 2),
-            "unit_normalised": get_normalised_unit(e["unit"]),
+        normalised_value = normalise_value(entry["value"], entry["unit"])
+        records.append({
+            "machine_id": machine_id,
+            "reading_type": entry["reading_type"],
+            "date": entry["date"],
+            "shift": entry["shift"],
+            "value": round(normalised_value, 2),
+            "unit_normalised": get_normalized_units(entry["unit"]),
         })
-
-    return recs
-
+    return records
 
 # Hint: replace conditional with lookup
-def get_normalised_unit(unit):
-    if unit == "minutes":
-        return "seconds"
-    elif unit == "kWh":
-        return "kJ"
-    elif unit == "units":
-        return "units"
-    elif unit == "count":
-        return "count"
-    elif unit == "seconds":
-        return "seconds"
-    else:
-        return "unknown"
+
+def get_normalized_units(unit):
+    return SHIFT_LABELS.get(unit, "Unknown")
 
 
 # Hint: introduce constant — what is 10000 here?
 def is_high_output(value):
     """Flag unusually high output readings."""
-    if value > 10000:
-        return True
-    return False
+    return value > MAX_OUTPUT_READING
 
 
 # Hint: replace conditional with lookup
 def get_shift_label(shift):
-    if shift == 1:
-        return "Morning"
-    elif shift == 2:
-        return "Afternoon"
-    elif shift == 3:
-        return "Night"
-    else:
-        return "Unknown"
-
+    return SHIFT_LABELS.get(shift, "Unknown")
 
 # Hint: extract variable — hard to read in one line
 def get_defect_rate(records):
-    return round(sum(r["value"] for r in records if r["reading_type"] == "defects") / sum(r["value"] for r in records if r["reading_type"] == "output") * 100, 2) if sum(r["value"] for r in records if r["reading_type"] == "output") > 0 else 0
+    sum_output = sum(r["value"] for r in records if r["reading_type"] == "output")
+    sum_defects = sum(r["value"] for r in records if r["reading_type"] == "defects")
+    return round(
+        sum_defects / sum_output * 100, 2
+    ) if sum_output > 0 else 0
