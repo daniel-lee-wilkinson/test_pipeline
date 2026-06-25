@@ -7,7 +7,7 @@ import statistics
 MINIMUM_UPTIME_THRESHOLD = 90
 
 # Hint: extract method — does too many things at once
-def clean(records):
+def clean_records(records):
     """Remove negative values, zero-output records, and statistical outliers."""
     out = []
     vals = [r["value"] for r in records]

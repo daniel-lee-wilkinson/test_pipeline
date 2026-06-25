@@ -64,7 +64,7 @@ def build_raw_database(data, machine_id):
 # Hint: replace conditional with lookup
 
 def get_normalized_units(unit):
-    return SHIFT_LABELS.get(unit, "Unknown")
+    return NORMALIZED_UNITS.get(unit, "unknown")
 
 
 # Hint: introduce constant — what is 10000 here?

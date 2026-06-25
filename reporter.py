@@ -3,6 +3,7 @@
 # Hint: extract method, rename, introduce constant, replace conditional
 
 import datetime
+import os
 from typing import Any
 
 SECS_PER_HOUR = 3600
@@ -82,7 +83,7 @@ def get_status_colour(severity):
 
 # Hint: simplify boolean
 def report_exists(path):
-    import os
+
     return os.path.exists(path)
 
 
