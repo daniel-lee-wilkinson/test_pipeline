@@ -7,6 +7,8 @@ from typing import Any
 
 SECS_PER_HOUR = 3600
 
+SHIFT_LABELS = {1: "Morning", 2: "Afternoon", 3: "Night"}
+
 SEVERITY_COLORS = {
 
     "Critical": "red",
@@ -42,24 +44,21 @@ def make_report(records, machine_id, date, out_path):
     print("Report saved: " + out_path)
 
 
-def shift_breakdown(day_recs: list[Any], lns: list[Any]):
+def shift_breakdown(day_recs, lns):
     lns.append("--- Shift Breakdown ---")
     for shift in [1, 2, 3]:
         shift_records = [r for r in day_recs if r["shift"] == shift]
         shift_output = sum(r["value"] for r in shift_records if r["reading_type"] == "output")
-        # Hint: introduce constant for 480, replace magic string shifts
-        shift_label = "Morning" if shift == 1 else "Afternoon" if shift == 2 else "Night"
+        shift_label = SHIFT_LABELS.get(shift, "Unknown")
         lns.append(f"  {shift_label}: {shift_output} units")
-
     out = "\n".join(lns)
     return out
 
-
-def print_report(d, defect_rate: float | int, downtime_hours: float, en_per_unit: float | int, mid, tot_output: int) -> \
+def print_report(date, defect_rate: float | int, downtime_hours: float, en_per_unit: float | int, machine_id, tot_output: int) -> \
 list[Any]:
     lns = []
-    lns.append(f"=== Daily Report: Machine {mid} ===")
-    lns.append(f"Date: {d}")
+    lns.append(f"=== Daily Report: Machine {machine_id} ===")
+    lns.append(f"Date: {date}")
     lns.append(f"Total output: {tot_output} units")
     lns.append(f"Defect rate: {defect_rate}%")
     lns.append(f"Downtime: {downtime_hours} hrs")
