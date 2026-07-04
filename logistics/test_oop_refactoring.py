@@ -1,6 +1,5 @@
 # test_oop_refactoring.py
 # Tests for the refactored OOP logistics classes.
-# Refactor oop_refactoring.py first, then fill in the ... placeholders.
 #
 # Run with: pytest test_oop_refactoring.py -v
 
@@ -81,18 +80,17 @@ def route(standard_shipment, late_shipment):
 # =============================================================================
 # Shipment — basic attributes
 # =============================================================================
-# Hint: after __init__, attributes should be accessible as self.shipment_id etc.
 
 def test_shipment_has_correct_id(standard_shipment):
-    assert standard_shipment.shipment_id == ...
+    assert standard_shipment.shipment_id == "S001"
 
 
 def test_shipment_has_correct_weight(standard_shipment):
-    assert standard_shipment.weight_kg == ...
+    assert standard_shipment.weight_kg == 50.0
 
 
 def test_shipment_has_correct_status(standard_shipment):
-    assert standard_shipment.status == ...
+    assert standard_shipment.status == "delivered"
 
 
 # =============================================================================
@@ -100,19 +98,19 @@ def test_shipment_has_correct_status(standard_shipment):
 # =============================================================================
 
 def test_is_heavy_returns_false_for_light_shipment(standard_shipment):
-    assert standard_shipment.is_heavy() == ...  # 50 kg, threshold is 500
+    assert standard_shipment.is_heavy() == False  # 50 kg, threshold is 500
 
 
 def test_is_heavy_returns_true_for_heavy_shipment(late_shipment):
-    assert late_shipment.is_heavy() == ...  # 600 kg
+    assert late_shipment.is_heavy() == True  # 600 kg
 
 
 def test_is_long_haul_returns_false_for_short(standard_shipment):
-    assert standard_shipment.is_long_haul() == ...  # 120 km
+    assert standard_shipment.is_long_haul() == False  # 120 km
 
 
 def test_is_long_haul_returns_true_for_long(late_shipment):
-    assert late_shipment.is_long_haul() == ...  # 800 km
+    assert late_shipment.is_long_haul() == True  # 800 km
 
 
 # =============================================================================
@@ -120,15 +118,15 @@ def test_is_long_haul_returns_true_for_long(late_shipment):
 # =============================================================================
 
 def test_is_delivered_returns_true_for_delivered(standard_shipment):
-    assert standard_shipment.is_delivered() == ...
+    assert standard_shipment.is_delivered() == True
 
 
 def test_is_delivered_returns_false_for_failed(failed_shipment):
-    assert failed_shipment.is_delivered() == ...
+    assert failed_shipment.is_delivered() == False
 
 
 def test_is_failed_returns_true_for_failed(failed_shipment):
-    assert failed_shipment.is_failed() == ...
+    assert failed_shipment.is_failed() == True
 
 
 # =============================================================================
@@ -136,33 +134,32 @@ def test_is_failed_returns_true_for_failed(failed_shipment):
 # =============================================================================
 
 def test_is_late_returns_false_when_on_time(standard_shipment):
-    assert standard_shipment.is_late() == ...
+    assert standard_shipment.is_late() == False
 
 
 def test_is_late_returns_true_when_late(late_shipment):
-    assert late_shipment.is_late() == ...  # actual 4 June, scheduled 1 June
+    assert late_shipment.is_late() == True  # actual 4 June, scheduled 1 June
 
 
 def test_is_late_returns_false_when_no_actual_date(failed_shipment):
-    assert failed_shipment.is_late() == ...
+    assert failed_shipment.is_late() == False
 
 
 def test_days_overdue_returns_zero_when_on_time(standard_shipment):
-    assert standard_shipment.days_overdue() == ...
+    assert standard_shipment.days_overdue() == 0
 
 
 def test_days_overdue_returns_correct_days(late_shipment):
-    assert late_shipment.days_overdue() == ...  # 3 days late
+    assert late_shipment.days_overdue() == 3  # 3 days late
 
 
 def test_days_overdue_returns_zero_when_no_actual_date(failed_shipment):
-    assert failed_shipment.days_overdue() == ...
+    assert failed_shipment.days_overdue() == 0
 
 
 # =============================================================================
 # Shipment — get_delivery_cost
 # =============================================================================
-# Hint: base=2.50, weight*0.15, distance*0.08, multiplied by priority
 
 def test_get_delivery_cost_standard_priority(standard_shipment):
     # base=2.50, weight=50*0.15=7.50, distance=120*0.08=9.60, multiplier=1.0
@@ -170,8 +167,9 @@ def test_get_delivery_cost_standard_priority(standard_shipment):
 
 
 def test_get_delivery_cost_express_priority(late_shipment):
-    # same formula, multiplier=1.5
-    assert late_shipment.get_delivery_cost() == pytest.approx(...)
+    # base=2.50, weight=600*0.15=90.0, distance=800*0.08=64.0, multiplier=1.5
+    # (2.50 + 90.0 + 64.0) * 1.5 = 234.75
+    assert late_shipment.get_delivery_cost() == pytest.approx(234.75)
 
 
 # =============================================================================
@@ -179,11 +177,11 @@ def test_get_delivery_cost_express_priority(late_shipment):
 # =============================================================================
 
 def test_get_status_label_delivered(standard_shipment):
-    assert standard_shipment.get_status_label() == ...
+    assert standard_shipment.get_status_label() == "Successfully delivered"
 
 
 def test_get_status_label_failed(failed_shipment):
-    assert failed_shipment.get_status_label() == ...
+    assert failed_shipment.get_status_label() == "Delivery failed"
 
 
 # =============================================================================
@@ -191,7 +189,7 @@ def test_get_status_label_failed(failed_shipment):
 # =============================================================================
 
 def test_shipment_repr(standard_shipment):
-    assert repr(standard_shipment) == ...  # Hint: "Shipment(S001, delivered, 50.0kg, 120.0km)"
+    assert repr(standard_shipment) == "Shipment(S001, delivered, 50.0kg, 120.0km)"
 
 
 # =============================================================================
@@ -199,11 +197,11 @@ def test_shipment_repr(standard_shipment):
 # =============================================================================
 
 def test_vehicle_has_correct_id(van):
-    assert van.vehicle_id == ...
+    assert van.vehicle_id == "V01"
 
 
 def test_vehicle_has_correct_type(van):
-    assert van.vehicle_type == ...
+    assert van.vehicle_type == "van"
 
 
 # =============================================================================
@@ -211,15 +209,15 @@ def test_vehicle_has_correct_type(van):
 # =============================================================================
 
 def test_is_active_returns_true_by_default(van):
-    assert van.is_active() == ...
+    assert van.is_active() == True
 
 
 def test_is_electric_returns_false_for_van(van):
-    assert van.is_electric() == ...
+    assert van.is_electric() == False
 
 
 def test_is_electric_returns_true_for_cargo_bike(cargo_bike):
-    assert cargo_bike.is_electric() == ...
+    assert cargo_bike.is_electric() == True
 
 
 # =============================================================================
@@ -227,15 +225,15 @@ def test_is_electric_returns_true_for_cargo_bike(cargo_bike):
 # =============================================================================
 
 def test_get_fuel_estimate_for_van(van):
-    assert van.get_fuel_estimate(100) == ...  # 100 km * 0.12
+    assert van.get_fuel_estimate(100) == 12.0  # 100 km * 0.12
 
 
 def test_get_fuel_estimate_for_cargo_bike(cargo_bike):
-    assert cargo_bike.get_fuel_estimate(100) == ...  # cargo bike uses no fuel
+    assert cargo_bike.get_fuel_estimate(100) == 0.0  # cargo bike uses no fuel
 
 
 def test_get_carbon_kg_for_van(van):
-    assert van.get_carbon_kg(100) == ...  # 100 km * 0.17
+    assert van.get_carbon_kg(100) == 17.0  # 100 km * 0.17
 
 
 # =============================================================================
@@ -243,11 +241,11 @@ def test_get_carbon_kg_for_van(van):
 # =============================================================================
 
 def test_get_vehicle_label_for_van(van):
-    assert van.get_vehicle_label() == ...
+    assert van.get_vehicle_label() == "Delivery Van"
 
 
 def test_get_vehicle_label_for_cargo_bike(cargo_bike):
-    assert cargo_bike.get_vehicle_label() == ...
+    assert cargo_bike.get_vehicle_label() == "Cargo Bicycle"
 
 
 # =============================================================================
@@ -255,7 +253,7 @@ def test_get_vehicle_label_for_cargo_bike(cargo_bike):
 # =============================================================================
 
 def test_vehicle_repr(van):
-    assert repr(van) == ...  # Hint: "Vehicle(V01, van, HAM)"
+    assert repr(van) == "Vehicle(V01, van, HAM)"
 
 
 # =============================================================================
@@ -263,11 +261,11 @@ def test_vehicle_repr(van):
 # =============================================================================
 
 def test_depot_has_correct_code(hamburg_depot):
-    assert hamburg_depot.depot_code == ...
+    assert hamburg_depot.depot_code == "HAM"
 
 
 def test_depot_starts_with_empty_shipments(hamburg_depot):
-    assert len(hamburg_depot.shipments) == ...
+    assert len(hamburg_depot.shipments) == 0
 
 
 # =============================================================================
@@ -276,13 +274,13 @@ def test_depot_starts_with_empty_shipments(hamburg_depot):
 
 def test_add_shipment_increases_count(hamburg_depot, standard_shipment):
     hamburg_depot.add_shipment(standard_shipment)
-    assert hamburg_depot.get_total_shipments() == ...
+    assert hamburg_depot.get_total_shipments() == 1
 
 
 def test_add_multiple_shipments(hamburg_depot, standard_shipment, late_shipment):
     hamburg_depot.add_shipment(standard_shipment)
     hamburg_depot.add_shipment(late_shipment)
-    assert hamburg_depot.get_total_shipments() == ...
+    assert hamburg_depot.get_total_shipments() == 2
 
 
 # =============================================================================
@@ -291,16 +289,15 @@ def test_add_multiple_shipments(hamburg_depot, standard_shipment, late_shipment)
 
 def test_get_delivery_rate_returns_100_when_all_delivered(hamburg_depot, standard_shipment):
     hamburg_depot.add_shipment(standard_shipment)
-    assert hamburg_depot.get_delivery_rate() == ...
+    assert hamburg_depot.get_delivery_rate() == 100.0
 
 
 def test_get_delivery_rate_returns_correct_rate(hamburg_depot, standard_shipment, failed_shipment):
-    # Hint: failed_shipment has depot_code BER not HAM — add a HAM failed one
     ham_failed = Shipment("S999", 10.0, 50.0, "failed", 1, "HAM",
                           datetime.date(2024, 6, 1), None)
     hamburg_depot.add_shipment(standard_shipment)
     hamburg_depot.add_shipment(ham_failed)
-    assert hamburg_depot.get_delivery_rate() == ...  # 1 delivered, 1 failed = 50.0%
+    assert hamburg_depot.get_delivery_rate() == 50.0  # 1 delivered, 1 failed
 
 
 # =============================================================================
@@ -309,7 +306,7 @@ def test_get_delivery_rate_returns_correct_rate(hamburg_depot, standard_shipment
 
 def test_is_over_capacity_returns_false_when_under(hamburg_depot, standard_shipment):
     hamburg_depot.add_shipment(standard_shipment)
-    assert hamburg_depot.is_over_capacity() == ...  # 1 shipment, capacity 100
+    assert hamburg_depot.is_over_capacity() == False  # 1 shipment, capacity 100
 
 
 def test_is_over_capacity_returns_true_when_over():
@@ -318,7 +315,7 @@ def test_is_over_capacity_returns_true_when_over():
                                       datetime.date(2024, 6, 1), datetime.date(2024, 6, 1)))
     small_depot.add_shipment(Shipment("S002", 10.0, 50.0, "delivered", 1, "HAM",
                                       datetime.date(2024, 6, 1), datetime.date(2024, 6, 1)))
-    assert small_depot.is_over_capacity() == ...  # 2 shipments, capacity 1
+    assert small_depot.is_over_capacity() == True  # 2 shipments, capacity 1
 
 
 # =============================================================================
@@ -327,11 +324,11 @@ def test_is_over_capacity_returns_true_when_over():
 
 def test_route_starts_with_no_stops():
     r = DeliveryRoute("R001", "V01", "2024-06-01")
-    assert len(r) == ...
+    assert len(r) == 0
 
 
 def test_add_stop_increases_length(route):
-    assert len(route) == ...  # fixture adds 2 stops
+    assert len(route) == 2  # fixture adds 2 stops
 
 
 # =============================================================================
@@ -339,32 +336,29 @@ def test_add_stop_increases_length(route):
 # =============================================================================
 
 def test_get_total_route_distance(route):
-    # standard: 120 km, late: 800 km
-    assert route.get_total_route_distance() == ...
+    assert route.get_total_route_distance() == 920.0  # 120 + 800
 
 
 def test_get_total_route_weight(route):
-    # standard: 50 kg, late: 600 kg
-    assert route.get_total_route_weight() == ...
+    assert route.get_total_route_weight() == 650.0  # 50 + 600
 
 
 def test_get_route_completion_rate(route):
-    # both delivered = 100%
-    assert route.get_route_completion_rate() == ...
+    assert route.get_route_completion_rate() == 100.0  # both delivered
 
 
 def test_has_failed_stop_returns_false_when_all_delivered(route):
-    assert route.has_failed_stop() == ...
+    assert route.has_failed_stop() == False
 
 
 def test_has_failed_stop_returns_true_when_one_failed(route, failed_shipment):
     route.add_stop(failed_shipment)
-    assert route.has_failed_stop() == ...
+    assert route.has_failed_stop() == True
 
 
 def test_get_heaviest_stop_returns_correct_shipment(route):
     heaviest = route.get_heaviest_stop()
-    assert heaviest.shipment_id == ...  # late_shipment has 600 kg
+    assert heaviest.shipment_id == "S002"  # late_shipment has 600 kg
 
 
 # =============================================================================
@@ -372,4 +366,4 @@ def test_get_heaviest_stop_returns_correct_shipment(route):
 # =============================================================================
 
 def test_route_repr(route):
-    assert repr(route) == ...  # Hint: "DeliveryRoute(R001, V01, 2024-06-01, 2 stops)"
+    assert repr(route) == "DeliveryRoute(R001, V01, 2024-06-01, 2 stops)"

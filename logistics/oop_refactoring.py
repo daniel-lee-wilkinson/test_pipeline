@@ -8,7 +8,7 @@
 #   2. Move each function in as a method — the dict argument becomes self
 #   3. Replace dict["key"] with self.key
 #   4. Remove the first argument (the dict) from each method signature
-from docutils.nodes import status
+
 
 HEAVY_THRESHOLD_KG = 500
 LONG_HAUL_THRESHOLD_KM = 500
@@ -145,6 +145,8 @@ class Vehicle:
         }
         return labels.get(self.vehicle_type, "Unknown Vehicle")
 
+    def __repr__(self):
+        return f"Vehicle({self.vehicle_id}, {self.vehicle_type}, {self.depot_code})"
 
 # Hint: add a __repr__ method that returns something like:
 # "Vehicle(V01, truck, HAM)"
