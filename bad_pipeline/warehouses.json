@@ -1,0 +1,23 @@
+[
+  {
+    "warehouse_id": "W01",
+    "name": "North Distribution Center",
+    "region": "Midwest",
+    "capacity_units": 50000,
+    "manager": {"name": "Priya Nair", "email": "priya.n@example.com"}
+  },
+  {
+    "warehouse_id": "W02",
+    "name": "East Coast Hub",
+    "region": "Northeast",
+    "capacity_units": 35000,
+    "manager": {"name": "Marcus Lee", "email": "marcus.l@example.com"}
+  },
+  {
+    "warehouse_id": "W03",
+    "name": "Southern Depot",
+    "region": "South",
+    "capacity_units": 42000,
+    "manager": {"name": "Renee Cole", "email": null}
+  }
+]

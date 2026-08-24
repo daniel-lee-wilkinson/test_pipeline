@@ -1,0 +1,19 @@
+shipment_id,warehouse_id,sku_id,quantity,weight,ship_date,carrier,status
+S001,W01,SKU-100,"1,200",500kg,2024-02-01,Fastline,delivered
+S002,W02,SKU-101,850,1100 lb,02/02/2024,QuickHaul,delivered
+S003,,SKU-102,300,300,2024-02-03,Fastline,delivered
+S004,W01,SKU-103,"2,000",900kg,Feb 4 2024,QuickHaul,delayed
+S005,W03,SKU-100,650,1400 lb,2024-02-05,Fastline,delivered
+S006,W02,SKU-104,"1,500",680kg,02/06/2024,QuickHaul,delivered
+S007,W01,SKU-101,400,880 lb,2024-02-07,Fastline,cancelled
+S008,,SKU-102,720,320kg,Feb 8 2024,QuickHaul,delivered
+S009,W03,SKU-103,"1,100",500kg,2024-02-09,Fastline,delivered
+S010,W02,SKU-104,900,2000 lb,02/10/2024,QuickHaul,delivered
+S011,W01,SKU-100,550,250kg,2024-02-11,Fastline,delivered
+S012,W03,SKU-101,300,660 lb,Feb 12 2024,QuickHaul,delayed
+S013,W02,SKU-102,"1,250",560kg,2024-02-13,Fastline,delivered
+S014,W01,SKU-103,480,1050 lb,02/14/2024,QuickHaul,delivered
+S015,W03,SKU-104,600,270kg,2024-02-15,Fastline,delivered
+S016,W02,SKU-100,950,2100 lb,Feb 16 2024,QuickHaul,delivered
+S017,W01,SKU-101,350,770 lb,2024-02-17,Fastline,cancelled
+S018,W03,SKU-102,700,320kg,02/18/2024,QuickHaul,delivered
