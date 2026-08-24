@@ -5,7 +5,6 @@
 # Run with: pytest test_water_treatment.py -v
 
 import pytest
-import datetime
 from water_treatment import Sensor, WaterSample, TreatmentStage, TreatmentPlant
 
 

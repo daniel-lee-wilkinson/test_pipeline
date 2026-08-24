@@ -1,0 +1,50 @@
+[
+  {
+    "customer_id": "C001",
+    "name": "Ava Thompson",
+    "email": "ava.t@example.com",
+    "signup_date": "2023-11-02",
+    "address": {"street": "12 Maple St", "city": "Austin", "state": "TX", "zip": "78701"},
+    "tags": ["newsletter", "vip"]
+  },
+  {
+    "customer_id": "C002",
+    "name": "Ben Rivera",
+    "email": null,
+    "signup_date": "2023-12-15",
+    "address": {"street": "88 Oak Ave", "city": "Denver", "state": "CO", "zip": "80202"},
+    "tags": ["newsletter"]
+  },
+  {
+    "customer_id": "C003",
+    "name": "Chloe Kim",
+    "email": "chloe.kim@example.com",
+    "signup_date": "2024-01-01",
+    "address": {"street": "5 Birch Rd", "city": "Seattle", "state": "WA", "zip": "98101"},
+    "tags": []
+  },
+  {
+    "customer_id": "C004",
+    "name": "Diego Alvarez",
+    "email": "diego.a@example.com",
+    "signup_date": "2023-10-20",
+    "address": {"street": "203 Pine Ct", "city": "Austin", "state": "TX", "zip": "78702"},
+    "tags": ["vip"]
+  },
+  {
+    "customer_id": "C005",
+    "name": "Emma Wilson",
+    "email": "emma.w@example.com",
+    "signup_date": "2024-01-10",
+    "address": {"street": "77 Cedar Blvd", "city": "Denver", "state": "CO", "zip": "80203"},
+    "tags": ["newsletter", "referral"]
+  },
+  {
+    "customer_id": "C006",
+    "name": "Farid Hassan",
+    "email": "farid.h@example.com",
+    "signup_date": "2023-09-05",
+    "address": {"street": "19 Elm Way", "city": "Seattle", "state": "WA", "zip": "98102"},
+    "tags": []
+  }
+]

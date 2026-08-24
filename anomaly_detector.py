@@ -2,7 +2,6 @@
 # Detects production anomalies — sudden drops, repeated defects, downtime patterns.
 # Hint: rename, extract variable, extract method, simplify boolean, introduce constant
 
-import statistics
 from typing import Any
 
 MAX_DOWNTIME_THRESHOLD_MINS = 60

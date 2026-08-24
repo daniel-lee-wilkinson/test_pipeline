@@ -9,9 +9,9 @@ from unittest.mock import patch, MagicMock
 
 from ingestor import fetch_machine_readings, is_valid_response, get_machine_ids, get_department
 from raw_builder import build_raw_database, get_normalized_units, is_high_output, get_shift_label, get_defect_rate
-from cleaner import clean_records, is_neg, is_record_complete, get_bounds, is_outlier, is_low_availability, filter_reading_type
-from anomaly_detector import is_output_dropping, has_repeat_defects, get_downtime_report, is_critical_downtime, get_anomaly_priority
-from kpi_calculator import calc_oee, get_oee_rating, estimate_annual_output, get_throughput_rate, is_world_class_oee
+from cleaner import is_neg, is_record_complete, is_outlier, is_low_availability
+from anomaly_detector import is_output_dropping, is_critical_downtime, get_anomaly_priority
+from kpi_calculator import get_oee_rating, estimate_annual_output, is_world_class_oee
 from reporter import generate_shift_summary, get_status_colour, report_exists
 
 # =============================================================================

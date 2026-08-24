@@ -6,7 +6,6 @@
 
 import statistics
 import datetime
-from os import name
 
 # --- Constants ---
 PH_MIN = 6.5

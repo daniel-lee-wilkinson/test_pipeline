@@ -1,0 +1,19 @@
+order_id,customer_id,product_id,quantity,unit_price,order_date,status
+1001,C001,P01,2,$19.99,2024-01-05,completed
+1002,C002,P03,1,45.00,01/06/2024,completed
+1003,,P02,3,$12.50,2024-01-07,completed
+1004,C001,P04,1,89.99,Jan 8 2024,cancelled
+1005,C003,P01,5,$19.99,2024-01-09,completed
+1006,C004,P05,2,22.00,01/10/2024,completed
+1007,C002,P02,,$12.50,2024-01-10,completed
+1008,C005,P03,1,45.00,Jan 11 2024,returned
+1009,C003,P04,2,$89.99,2024-01-12,completed
+1010,C001,P05,1,22.00,01/13/2024,completed
+1011,C006,P01,3,$19.99,2024-01-14,completed
+1012,,P02,1,12.50,Jan 15 2024,completed
+1013,C004,P03,2,$45.00,2024-01-16,completed
+1014,C002,P04,1,89.99,01/17/2024,cancelled
+1015,C005,P01,4,$19.99,2024-01-18,completed
+1016,C006,P05,2,22.00,Jan 19 2024,completed
+1017,C003,P02,1,$12.50,2024-01-20,completed
+1018,C001,P03,3,45.00,01/21/2024,completed
